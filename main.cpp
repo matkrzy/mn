@@ -1,16 +1,16 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 
 const int N_MAX = 100;
 
 bool funkcja_a(
-        int &n,
-        double A[N_MAX][N_MAX],
-        double B[N_MAX]
-
+	int &n,
+	double A[N_MAX][N_MAX],
+	double B[N_MAX],
+	std::string &nazwa_pliku
 ) {
-    std::string nazwa_pliku;
     std::ifstream plik;
 
     std::cout << "Prosze podac rozmiar macierzy: ";
@@ -22,8 +22,8 @@ bool funkcja_a(
     plik.open(nazwa_pliku.c_str());
     if (!plik.good()) {
         std::string path = "./data/";
-        nazwa_pliku = path + nazwa_pliku;
-        plik.open(nazwa_pliku.c_str());
+        path += nazwa_pliku;
+        plik.open(path.c_str());
     }
 
     if (!plik.good()) {
@@ -130,83 +130,94 @@ void funkcja_c(
 }
 
 void funkcja_d(
-        int n,
-        double A[N_MAX][N_MAX],
-        double B[N_MAX],
-        double L[N_MAX][N_MAX],
-        double U[N_MAX][N_MAX],
-        double X[N_MAX],
-        double Y[N_MAX]
+	int n,
+	double A[N_MAX][N_MAX],
+	double B[N_MAX],
+	double L[N_MAX][N_MAX],
+	double U[N_MAX][N_MAX],
+	double X[N_MAX],
+	double Y[N_MAX],
+	std::string nazwa_pliku
 ) {
-    std::cout << "A" << std::endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << std::setw(13) << A[i][j];
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+	std::ofstream plik;
+	plik.open("raport_" + nazwa_pliku);
 
-    std::cout << "B" << std::endl;
-    for (int i = 0; i < n; i++) {
-        std::cout << std::setw(13) << B[i] << std::endl;
-    }
-    std::cout << std::endl;
+	plik << "A" << std::endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			plik << std::setw(13) << A[i][j];
+		}
+		plik << std::endl;
+	}
+	plik << std::endl;
 
-    std::cout << "L" << std::endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << std::setw(13) << L[i][j];
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+	plik << "B" << std::endl;
+	for (int i = 0; i < n; i++) {
+		plik << std::setw(13) << B[i] << std::endl;
+	}
+	plik << std::endl;
 
-    std::cout << "U" << std::endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << std::setw(13) << U[i][j];
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+	plik << "L" << std::endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			plik << std::setw(13) << L[i][j];
+		}
+		plik << std::endl;
+	}
+	plik << std::endl;
 
-    std::cout << "Y" << std::endl;
-    for (int i = 0; i < n; i++) {
-        std::cout << std::setw(13) << Y[i] << std::endl;
-    }
-    std::cout << std::endl;
+	plik << "U" << std::endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			plik << std::setw(13) << U[i][j];
+		}
+		plik << std::endl;
+	}
+	plik << std::endl;
 
-    std::cout << "X" << std::endl;
-    for (int i = 0; i < n; i++) {
-        std::cout << std::setw(13) << X[i] << std::endl;
-    }
-    std::cout << std::endl;
+	plik << "Y" << std::endl;
+	for (int i = 0; i < n; i++) {
+		plik << std::setw(13) << Y[i] << std::endl;
+	}
+	plik << std::endl;
+
+	plik << "X" << std::endl;
+	for (int i = 0; i < n; i++) {
+		plik << std::setw(13) << X[i] << std::endl;
+	}
+	plik << std::endl;
+
+	plik << "--------------------------------------------------------------------------------";
+	plik << std::endl;
+
+	plik.close();
 }
 
 int main() {
-    int n;
+	int n;
 
-    double L[N_MAX][N_MAX];
-    double U[N_MAX][N_MAX];
-    double A[N_MAX][N_MAX];
-    double B[N_MAX];
-    double X[N_MAX];
-    double Y[N_MAX];
+	double L[N_MAX][N_MAX];
+	double U[N_MAX][N_MAX];
+	double A[N_MAX][N_MAX];
+	double B[N_MAX];
+	double X[N_MAX];
+	double Y[N_MAX];
 
-    std::cout.precision(4);
+	std::string nazwa_pliku;
+
+std::cout.precision(4);
     std::cout << std::scientific;
 
-    bool a = funkcja_a(n, A, B);
+    bool a = funkcja_a(n, A, B, nazwa_pliku);
     if (a) {
         bool b = funkcja_b(n, A, L, U);
         if (b) {
             funkcja_c(n, B, L, U, X, Y);
-            funkcja_d(n, A, B, L, U, X, Y);
+            funkcja_d(n, A, B, L, U, X, Y, nazwa_pliku);
         }
 
     } else {
-        std::cout << "błąd otwarcia pliku!";
+        std::cout << "Nie można otworzyć pliku!";
     }
 
     system("PAUSE");
