@@ -6,10 +6,10 @@
 const int N_MAX = 100;
 
 bool funkcja_a(
-	int &n,
-	double A[N_MAX][N_MAX],
-	double B[N_MAX],
-	std::string &nazwa_pliku
+        int &n,
+        double A[N_MAX][N_MAX],
+        double B[N_MAX],
+        std::string &nazwa_pliku
 ) {
     std::ifstream plik;
 
@@ -130,84 +130,84 @@ void funkcja_c(
 }
 
 void funkcja_d(
-	int n,
-	double A[N_MAX][N_MAX],
-	double B[N_MAX],
-	double L[N_MAX][N_MAX],
-	double U[N_MAX][N_MAX],
-	double X[N_MAX],
-	double Y[N_MAX],
-	std::string nazwa_pliku
+        int n,
+        double A[N_MAX][N_MAX],
+        double B[N_MAX],
+        double L[N_MAX][N_MAX],
+        double U[N_MAX][N_MAX],
+        double X[N_MAX],
+        double Y[N_MAX],
+        std::string nazwa_pliku
 ) {
-	std::ofstream plik;
-	plik.open("raport_" + nazwa_pliku);
+    std::ofstream plik;
+    plik.open("raport_" + nazwa_pliku);
 
-	plik << "A" << std::endl;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			plik << std::setw(13) << A[i][j];
-		}
-		plik << std::endl;
-	}
-	plik << std::endl;
+    plik << "A" << std::endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            plik << std::setw(13) << std::scientific << A[i][j];
+        }
+        plik << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "B" << std::endl;
-	for (int i = 0; i < n; i++) {
-		plik << std::setw(13) << B[i] << std::endl;
-	}
-	plik << std::endl;
+    plik << "B" << std::endl;
+    for (int i = 0; i < n; i++) {
+        plik << std::setw(13) << std::scientific << B[i] << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "L" << std::endl;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			plik << std::setw(13) << L[i][j];
-		}
-		plik << std::endl;
-	}
-	plik << std::endl;
+    plik << "L" << std::endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            plik << std::setw(13) << std::scientific << L[i][j];
+        }
+        plik << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "U" << std::endl;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			plik << std::setw(13) << U[i][j];
-		}
-		plik << std::endl;
-	}
-	plik << std::endl;
+    plik << "U" << std::endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            plik << std::setw(13) << std::scientific << U[i][j];
+        }
+        plik << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "Y" << std::endl;
-	for (int i = 0; i < n; i++) {
-		plik << std::setw(13) << Y[i] << std::endl;
-	}
-	plik << std::endl;
+    plik << "Y" << std::endl;
+    for (int i = 0; i < n; i++) {
+        plik << std::setw(13) << std::scientific << Y[i] << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "X" << std::endl;
-	for (int i = 0; i < n; i++) {
-		plik << std::setw(13) << X[i] << std::endl;
-	}
-	plik << std::endl;
+    plik << "X" << std::endl;
+    for (int i = 0; i < n; i++) {
+        plik << std::setw(13) << X[i] << std::endl;
+    }
+    plik << std::endl;
 
-	plik << "--------------------------------------------------------------------------------";
-	plik << std::endl;
+    plik << "--------------------------------------------------------------------------------";
+    plik << std::endl;
 
-	plik.close();
+    plik.close();
 
-    std::cout<<"Raport zostal wygenerowany poprawnie";
+    std::cout << "Raport zostal wygenerowany poprawnie";
 }
 
 int main() {
-	int n;
+    int n;
 
-	double L[N_MAX][N_MAX];
-	double U[N_MAX][N_MAX];
-	double A[N_MAX][N_MAX];
-	double B[N_MAX];
-	double X[N_MAX];
-	double Y[N_MAX];
+    double L[N_MAX][N_MAX];
+    double U[N_MAX][N_MAX];
+    double A[N_MAX][N_MAX];
+    double B[N_MAX];
+    double X[N_MAX];
+    double Y[N_MAX];
 
-	std::string nazwa_pliku;
+    std::string nazwa_pliku;
 
-std::cout.precision(4);
+    std::cout.precision(4);
     std::cout << std::scientific;
 
     bool a = funkcja_a(n, A, B, nazwa_pliku);
