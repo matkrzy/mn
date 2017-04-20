@@ -191,6 +191,8 @@ void funkcja_d(
 	plik << std::endl;
 
 	plik.close();
+
+    std::cout<<"Raport zostal wygenerowany poprawnie";
 }
 
 int main() {
