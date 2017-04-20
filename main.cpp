@@ -1,14 +1,15 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 
 const int N_MAX = 100;
 
 void funkcja_a(
 	int &n,
 	double A[N_MAX][N_MAX],
-	double B[N_MAX]
-
+	double B[N_MAX],
+	std::string &nazwa_pliku
 ) {
 	std::ifstream plik;
 
@@ -16,7 +17,7 @@ void funkcja_a(
 	std::cin >> n;
 
 	//std::cout << "Prosze podac nazwe pliku wejsciowego: ";
-	plik.open("dane.txt");
+	plik.open("data/zestaw1.txt");
 
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
@@ -24,6 +25,8 @@ void funkcja_a(
 		}
 		plik >> B[i];
 	}
+	
+	plik.close();
 }
 
 void funkcja_b(
@@ -116,52 +119,61 @@ void funkcja_d(
 	double L[N_MAX][N_MAX],
 	double U[N_MAX][N_MAX],
 	double X[N_MAX],
-	double Y[N_MAX]
+	double Y[N_MAX],
+	std::string nazwa_pliku
 ) {
-	std::cout << "A" << std::endl;
+	std::ofstream plik;
+	plik.open("raport_" + nazwa_pliku);
+
+	plik << "A" << std::endl;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			std::cout << std::setw(13) << A[i][j];
+			plik << std::setw(13) << A[i][j];
 		}
-		std::cout << std::endl;
+		plik << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
 
-	std::cout << "B" << std::endl;
+	plik << "B" << std::endl;
 	for (int i = 0; i < n; i++) {
-		std::cout << std::setw(13) << B[i] << std::endl;
+		plik << std::setw(13) << B[i] << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
 
-	std::cout << "L" << std::endl;
+	plik << "L" << std::endl;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			std::cout << std::setw(13) << L[i][j];
+			plik << std::setw(13) << L[i][j];
 		}
-		std::cout << std::endl;
+		plik << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
 
-	std::cout << "U" << std::endl;
+	plik << "U" << std::endl;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			std::cout << std::setw(13) << U[i][j];
+			plik << std::setw(13) << U[i][j];
 		}
-		std::cout << std::endl;
+		plik << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
 
-	std::cout << "Y" << std::endl;
+	plik << "Y" << std::endl;
 	for (int i = 0; i < n; i++) {
-		std::cout << std::setw(13) << Y[i] << std::endl;
+		plik << std::setw(13) << Y[i] << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
 
-	std::cout << "X" << std::endl;
+	plik << "X" << std::endl;
 	for (int i = 0; i < n; i++) {
-		std::cout << std::setw(13) << X[i] << std::endl;
+		plik << std::setw(13) << X[i] << std::endl;
 	}
-	std::cout << std::endl;
+	plik << std::endl;
+
+	plik << "--------------------------------------------------------------------------------";
+	plik << std::endl;
+
+	plik.close();
 }
 
 int main() {
@@ -174,13 +186,15 @@ int main() {
 	double X[N_MAX];
 	double Y[N_MAX];
 
+	std::string nazwa_pliku;
+
 	std::cout.precision(4);
 	std::cout << std::scientific;
 
-	funkcja_a(n, A, B);
+	funkcja_a(n, A, B, nazwa_pliku);
 	funkcja_b(n, A, L, U);
 	funkcja_c(n, B, L, U, X, Y);
-	funkcja_d(n, A, B, L, U, X, Y);
+	funkcja_d(n, A, B, L, U, X, Y, nazwa_pliku);
 
 	system("PAUSE");
 	return 0;
